@@ -75,15 +75,15 @@ unmap_gpu_buffer();
 # Ok::<(), std::io::Error>(())
 ```
 */
-pub struct Writer<W> {
-    writer: W,
+pub struct Writer<'a, W> {
+    writer: &'a mut W,
     offset: usize,
 }
 
-impl<W: Write> Writer<W> {
+impl<'a, W: Write> Writer<'a, W> {
     /// Create a new `Writer`, wrapping a buffer, file, or other type that
     /// implements [`std::io::Write`].
-    pub fn new(writer: W) -> Self {
+    pub fn new(writer: &'a mut W) -> Self {
         Self { writer, offset: 0 }
     }
 

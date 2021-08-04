@@ -127,7 +127,8 @@ pub trait WriteStd430 {
     /// does not include alignment padding that may be needed before or after
     /// this type when written as part of a larger buffer.
     fn std430_size(&self) -> usize {
-        let mut writer = Writer::new(io::sink());
+        let mut sink = io::sink();
+        let mut writer = Writer::new(&mut sink);
         self.write_std430(&mut writer).unwrap();
         writer.len()
     }
@@ -169,7 +170,8 @@ where
     }
 
     fn std430_size(&self) -> usize {
-        let mut writer = Writer::new(io::sink());
+        let mut sink = io::sink();
+        let mut writer = Writer::new(&mut sink);
         self.write_std430(&mut writer).unwrap();
         writer.len()
     }
